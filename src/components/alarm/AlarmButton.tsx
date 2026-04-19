@@ -7,6 +7,7 @@ import Animated, {
   withRepeat,
   withSequence,
   withTiming,
+  withDelay,
   cancelAnimation,
   Easing,
 } from 'react-native-reanimated';
@@ -39,7 +40,7 @@ export function AlarmButton({ isActive, onPress, disabled }: AlarmButtonProps) {
     outerRing2.value = withRepeat(
       withSequence(
         withTiming(1, { duration: 0 }),
-        withDelay400(withTiming(1.9, { duration: 1000, easing: Easing.out(Easing.ease) })),
+        withDelay(400, withTiming(1.9, { duration: 1000, easing: Easing.out(Easing.ease) })),
         withTiming(1, { duration: 0 }),
       ),
       -1,
@@ -126,12 +127,6 @@ export function AlarmButton({ isActive, onPress, disabled }: AlarmButtonProps) {
       </Animated.View>
     </View>
   );
-}
-
-// tiny helper so we don't need another import
-function withDelay400<T>(animation: T): T {
-  'worklet';
-  return animation;
 }
 
 const BUTTON_SIZE = 180;

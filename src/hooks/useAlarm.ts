@@ -8,7 +8,7 @@ import { emitAlarmStart, emitAlarmStop } from '../services/socket';
 export function useAlarm() {
   const { isActive, setActive, setNearbyUsers } = useAlarmStore();
   const { triggerHeavy, triggerMedium } = useHaptic();
-  const { playAlarm, stopAlarm } = useAudio();
+  const { playAlarm, stopAlarm: stopAudio } = useAudio();
 
   const startAlarm = useCallback(async () => {
     try {
@@ -29,11 +29,11 @@ export function useAlarm() {
       setActive(false);
       setNearbyUsers([]);
       triggerMedium();
-      stopAlarm();
+      await stopAudio();
     } catch (err) {
       console.error('[Alarm] Failed to stop:', err);
     }
-  }, [setActive, setNearbyUsers, triggerMedium, stopAlarm]);
+  }, [setActive, setNearbyUsers, triggerMedium, stopAudio]);
 
   const toggleAlarm = useCallback(async () => {
     if (isActive) {
