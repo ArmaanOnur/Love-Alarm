@@ -29,7 +29,9 @@ export default function RadarScreen() {
         {/* User dots */}
         {nearbyUsers.slice(0, 8).map((u, i) => {
           const angle = (i / Math.max(nearbyUsers.length, 1)) * 2 * Math.PI;
-          const dist = Math.min(u.distanceMeters / 10, 0.95);
+          const meters =
+            u.distanceMeters ?? (u.distance != null ? u.distance * 1000 : 10);
+          const dist = Math.min(meters / 10, 0.95);
           const radius = dist * 130;
           const x = Math.cos(angle) * radius;
           const y = Math.sin(angle) * radius;

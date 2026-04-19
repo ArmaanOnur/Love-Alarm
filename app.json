@@ -75,7 +75,6 @@
           "microphonePermission": "Sesli mesaj göndermek için mikrofon erişimi gerekli."
         }
       ],
-      "expo-haptics",
       "expo-image-picker"
     ],
     "experiments": {

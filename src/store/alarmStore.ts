@@ -18,7 +18,7 @@ interface AlarmState {
   setDailyTasks: (tasks: DailyTask[]) => void;
   completeTask: (id: string) => void;
   setStreakCount: (n: number) => void;
-  setBoost: (active: boolean, endsAt?: string) => void;
+  setBoost: (active: boolean, endsAt?: string | null) => void;
 }
 
 export const useAlarmStore = create<AlarmState>((set) => ({
@@ -44,6 +44,6 @@ export const useAlarmStore = create<AlarmState>((set) => ({
       ),
     })),
   setStreakCount: (streakCount) => set({ streakCount }),
-  setBoost: (boostActive, boostEndsAt = null) =>
-    set({ boostActive, boostEndsAt }),
+  setBoost: (boostActive, boostEndsAt?: string | null) =>
+    set({ boostActive, boostEndsAt: boostEndsAt ?? null }),
 }));

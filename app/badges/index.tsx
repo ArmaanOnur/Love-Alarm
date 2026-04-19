@@ -84,7 +84,7 @@ const BADGE_CATEGORIES = [
 export default function BadgesScreen() {
   const insets = useSafeAreaInsets();
   const { user } = useUserStore();
-  const earnedBadgeIds = user?.badges || [];
+  const earnedSet = new Set<string>([...(user?.badges ?? [])]);
 
   const BadgeCard = ({ badge, earned }: { badge: BadgeInfo; earned: boolean }) => (
     <View
@@ -124,7 +124,7 @@ export default function BadgesScreen() {
         {/* Stats */}
         <View style={styles.stats}>
           <View style={styles.stat}>
-            <Text style={styles.statNum}>{earnedBadgeIds.length}</Text>
+            <Text style={styles.statNum}>{earnedSet.size}</Text>
             <Text style={styles.statLabel}>Kazanıldı</Text>
           </View>
           <View style={styles.statDivider} />
@@ -135,7 +135,7 @@ export default function BadgesScreen() {
           <View style={styles.statDivider} />
           <View style={styles.stat}>
             <Text style={styles.statNum}>
-              {Math.round((earnedBadgeIds.length / Object.keys(BADGE_CATALOG).length) * 100)}%
+              {Math.round((earnedSet.size / Object.keys(BADGE_CATALOG).length) * 100)}%
             </Text>
             <Text style={styles.statLabel}>Tamamlama</Text>
           </View>
@@ -153,13 +153,13 @@ export default function BadgesScreen() {
                 <Text style={styles.categoryTitle}>{category.label}</Text>
                 <View style={styles.categoryCount}>
                   <Text style={styles.categoryCountText}>
-                    {categoryBadges.filter((b) => earnedBadgeIds.includes(b.id)).length}/{categoryBadges.length}
+                    {categoryBadges.filter((b) => earnedSet.has(b.id)).length}/{categoryBadges.length}
                   </Text>
                 </View>
               </View>
               <View style={styles.badgeGrid}>
                 {categoryBadges.map((badge) => {
-                  const earned = earnedBadgeIds.includes(badge.id);
+                  const earned = earnedSet.has(badge.id);
                   return (
                     <BadgeCard
                       key={badge.id}
@@ -174,7 +174,7 @@ export default function BadgesScreen() {
         })}
 
         {/* Empty state if no badges */}
-        {earnedBadgeIds.length === 0 && (
+        {earnedSet.size === 0 && (
           <View style={styles.emptyState}>
             <Text style={styles.emptyIcon}>🎯</Text>
             <Text style={styles.emptyTitle}>Henüz Rozet Kazanmadınız</Text>

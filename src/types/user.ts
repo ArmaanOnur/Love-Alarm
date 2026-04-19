@@ -11,6 +11,8 @@ export interface User {
   phone: string;
   name: string;
   bio?: string;
+  /** Earned badge keys from backend (optional until loaded) */
+  badges?: BadgeKey[];
   avatarUrl?: string;
   mood?: Mood;
   interests: string[];
@@ -33,7 +35,14 @@ export interface NearbyUser {
   avatarUrl?: string;
   mood?: Mood;
   interests: string[];
-  distanceMeters: number;
+  /** Proximity alarm feed (meters) */
+  distanceMeters?: number;
+  /** Browse / discovery APIs often return km */
+  distance?: number;
+  bio?: string;
+  isPremium?: boolean;
+  loveScore?: number;
+  streakCount?: number;
   isAnonymous: boolean; // non-premium users see blurred profiles
   hasHeartedMe: boolean;
 }

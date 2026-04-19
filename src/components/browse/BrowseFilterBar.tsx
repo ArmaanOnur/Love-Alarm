@@ -110,7 +110,7 @@ export function BrowseFilterBar({
               maximumValue={50}
               step={1}
               value={filters.distanceMax}
-              onValueChange={value => updateFilter({ distanceMax: value })}
+              onValueChange={(value: number) => updateFilter({ distanceMax: value })}
               minimumTrackTintColor={Colors.primary}
               maximumTrackTintColor={Colors.surfaceBorder}
               thumbTintColor={Colors.primary}
@@ -134,7 +134,7 @@ export function BrowseFilterBar({
                 maximumValue={filters.ageMax - 1}
                 step={1}
                 value={filters.ageMin}
-                onValueChange={value => updateFilter({ ageMin: value })}
+                onValueChange={(value: number) => updateFilter({ ageMin: value })}
                 minimumTrackTintColor={Colors.primary}
                 maximumTrackTintColor={Colors.surfaceBorder}
                 thumbTintColor={Colors.primary}
@@ -149,7 +149,7 @@ export function BrowseFilterBar({
                 maximumValue={80}
                 step={1}
                 value={filters.ageMax}
-                onValueChange={value => updateFilter({ ageMax: value })}
+                onValueChange={(value: number) => updateFilter({ ageMax: value })}
                 minimumTrackTintColor={Colors.primary}
                 maximumTrackTintColor={Colors.surfaceBorder}
                 thumbTintColor={Colors.primary}

@@ -9,8 +9,15 @@ interface NearbyUserCardProps {
   onHeart: (userId: string) => void;
 }
 
+function nearbyMeters(user: NearbyUser): number {
+  if (user.distanceMeters != null) return user.distanceMeters;
+  if (user.distance != null) return Math.round(user.distance * 1000);
+  return 0;
+}
+
 export function NearbyUserCard({ user, onHeart }: NearbyUserCardProps) {
-  const tier = getProximityTier(user.distanceMeters);
+  const meters = nearbyMeters(user);
+  const tier = getProximityTier(meters);
   const tierColor = { near: Colors.near, medium: Colors.warning, far: Colors.primary }[tier];
 
   return (
@@ -24,7 +31,7 @@ export function NearbyUserCard({ user, onHeart }: NearbyUserCardProps) {
           </View>
         )}
         <View style={[styles.distanceBadge, { backgroundColor: tierColor }]}>
-          <Text style={styles.distanceText}>{formatDistance(user.distanceMeters)}</Text>
+          <Text style={styles.distanceText}>{formatDistance(meters)}</Text>
         </View>
       </View>
 
